@@ -277,7 +277,7 @@ $$
 
 This final equality for $c_3'$ exploits that:
 
-$$ \begin{aligned} c*3^e = g^{em_1m_2} h^{er3} = c_1^{em_2} h^{er_3−er_1m_2} = Com*{c_1,h}(em_2, er_3 −er_1m_2). \end{aligned} $$
+```math $$ \begin{aligned} c*3^e = g^{em_1m_2} h^{er3} = c_1^{em_2} h^{er_3−er_1m_2} = Com*{c_1,h}(em_2, er_3 −er_1m_2). \end{aligned} $$```
 
 $8$: Prover sends $z_1,...,z_5.$  
 $9$: Verifier checks that:
