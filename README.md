@@ -208,13 +208,13 @@ $$
 
 Then:
 
-$$
+```math
 \begin{aligned}
 g^{m^{*}}\cdot
 h^{z^{*}}=\Big(g^{(m_{1}^{\prime}-m_{2}^{\prime})}h^{(z_{1}^{\prime}-z_{2}^{\prime})}\Big)^{(e-e^{\prime})^{-1}}=\Big(c^{e}\cdot
 a\cdot\Big(c^{e^{\prime}}\cdot a\Big)^{-1}\Big)^{(e-e^{\prime})^{-1}}=c
 \end{aligned}
-$$
+```
 
 where the penultimate equality follows from the fact that $(a, e,(m'_1 ,z'_1 ))$ and $(a, e',(m'_1 ,z'_1 ))$ are accepting transcripts.
 That is, $(m^* ,z^* )$ is a valid (message, opening information) pair for the commitment $c$.  
