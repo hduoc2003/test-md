@@ -105,7 +105,7 @@ You should read the definition of commitment scheme [here](../../terms/commitmen
 
 **A Perfectly Hiding Commitment Scheme from any $Σ$-Protocol**: Damgård showed how to use any $Σ$-protocol for any hard relation to
 obtain a perfectly hiding, computationally binding commitment scheme. To ensure hiding, Damgård’s transformation does require the
-simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e^{\*}$ , and output a
+simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e^*$ , and output a
 transcript $(a, e^* ,z)$.
 
 Here is how Damgård’s commitment scheme works. Let denote $(h,w) ← Gen$, and declares $h$ to be both the committing key $ck$ and the
@@ -208,13 +208,13 @@ $$
 
 Then:
 
-```math
-\begin{aligned}
+$$
+\begin{aligned} 
 g^{m^{*}}\cdot
 h^{z^{*}}=\Big(g^{(m_{1}^{\prime}-m_{2}^{\prime})}h^{(z_{1}^{\prime}-z_{2}^{\prime})}\Big)^{(e-e^{\prime})^{-1}}=\Big(c^{e}\cdot
 a\cdot\Big(c^{e^{\prime}}\cdot a\Big)^{-1}\Big)^{(e-e^{\prime})^{-1}}=c
 \end{aligned}
-```
+$$
 
 where the penultimate equality follows from the fact that $(a, e,(m'_1 ,z'_1 ))$ and $(a, e',(m'_1 ,z'_1 ))$ are accepting transcripts.
 That is, $(m^* ,z^* )$ is a valid (message, opening information) pair for the commitment $c$.  
@@ -277,10 +277,7 @@ $$
 
 This final equality for $c_3'$ exploits that:
 
-```math 
-$$ \begin{aligned} c*3^e = g^{em_1m_2} h^{er3} = c_1^{em_2} h^{er_3−er_1m_2} = Com*{c_1,h}(em_2, er_3 −er_1m_2). \end{aligned}
-$$
-```
+$$ \begin{aligned} c_3^e = g^{em_1m_2} h^{er_3} = c_1^{em_2} h^{er_3−er_1m_2} = Com_{c_1,h}(em_2, er_3 −er_1m_2). \end{aligned} $$
 
 $8$: Prover sends $z_1,...,z_5.$  
 $9$: Verifier checks that:
