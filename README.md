@@ -105,7 +105,7 @@ You should read the definition of commitment scheme [here](../../terms/commitmen
 
 **A Perfectly Hiding Commitment Scheme from any $Σ$-Protocol**: Damgård showed how to use any $Σ$-protocol for any hard relation to
 obtain a perfectly hiding, computationally binding commitment scheme. To ensure hiding, Damgård’s transformation does require the
-simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e^*$ , and output a
+simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e ^ *$ , and output a
 transcript $(a, e^* ,z)$.
 
 Here is how Damgård’s commitment scheme works. Let denote $(h,w) ← Gen$, and declares $h$ to be both the committing key $ck$ and the
