@@ -36,12 +36,10 @@ as the _scalar field_ of $G$. It is not the same as the base field $F$ over whic
 
 This section covers:
 
-- Establishing that the prover has knowledge of a discrete logarithm of some group element
-  ([Section 12.2.2](#12.2.2)).
+- Establishing that the prover has knowledge of a discrete logarithm of some group element ([Section 12.2.2](#12.2.2)).
 - Allowing the prover to cryptographically commit to group elements without revealing the committed group element to the verifier until
   later ([Section 12.3](#12.3)).
-- Establishing product relationships between committed values
-  ([Section 12.3.2](#12.3.2))
+- Establishing product relationships between committed values ([Section 12.3.2](#12.3.2))
 
 ### 12.2.1 $Σ$-Protocols
 
@@ -52,7 +50,7 @@ responding with a challenge $e$ , and the prover replying with $z$. A $Σ$-proto
 additional properties:
 
 - **Special soundness**: There exists a polynomial time algorithm $Q$ such that, when given as input a pair of accepting transcripts
-  $(a, e, z)$ and $(a, e',z')$ with $e \neq e'$ , $Q$ outputs a witness $w$ such that $(h,w) ∈ R$.
+  $(a, e, z)$ and $(a, e',z')$ with $e \neq e'$ , $Q$ outputs a witness $w$ such that $(h,w) \in R$.
 - **Honest Verifier Perfect Zero-Knowledge (HVZK)**: There must be a randomized polynomial time simulator that takes as input the
   public input $h$ from the $Σ$-protocol, and outputs a transcript $(a, e,z)$ such that the distribution over transcripts output by the
   simulator is identical to the distribution over transcripts produced by the honest verifier in the $Σ$-protocol interacting with the
@@ -64,8 +62,7 @@ The algorithm can be presented as follows:
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order with generator $g$.  
 $2$: Public input is $h$ = $g^w$, where only prover knows $w$.  
 $3$: Picks a random number $r \in \{0,...,|G| −1\}$ and sends $a ← g^r$ to the verifier.  
-$4$: Verifier responds with a random element
-$e ∈ \{0,...,|G|−1\}.$  
+$4$: Verifier responds with a random element $e \in \{0,...,|G|−1\}.$  
 $5$: Prover responds with $z ← (we+r)$ mod $|G|$.  
 $6$: Verifier checks that $a.h^e = g^z$.
 
@@ -105,8 +102,8 @@ You should read the definition of commitment scheme [here](../../terms/commitmen
 
 **A Perfectly Hiding Commitment Scheme from any $Σ$-Protocol**: Damgård showed how to use any $Σ$-protocol for any hard relation to
 obtain a perfectly hiding, computationally binding commitment scheme. To ensure hiding, Damgård’s transformation does require the
-simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e^{\*}$ , and output a
-transcript $(a, e^{\*} ,z)$.
+simulator used to establish HVZK must be able to take as input not only the public input $h$, but also a challenge $e^{ * }$ , and output
+a transcript $(a, e^ * ,z)$.
 
 Here is how Damgård’s commitment scheme works. Let denote $(h,w) ← Gen$, and declares $h$ to be both the committing key $ck$ and the
 verification key $vk$ (the "toxic waste" witness $w$ must be discarded because anyone who knows $w$ may be able to break binding of the
@@ -130,8 +127,8 @@ intractable.
 ---
 
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order. The key generation procedure publishes randomly chosen generators $g,h
-∈ G$, which serve as both the commitment key and verification key.  
-$2$: To commit to a number $m ∈ \{0,...,|G| −1\}$, committer picks a random $z ∈ \{0,...,|G| −1\}$ and sends $c ← g^m · h^z$ .  
+\in G$, which serve as both the commitment key and verification key.  
+$2$: To commit to a number $m \in \{0,...,|G| −1\}$, committer picks a random $z \in \{0,...,|G| −1\}$ and sends $c ← g^m · h^z$ .  
 $3$: To open a commitment $c$, committer sends $(m,z)$. Verifier checks that $c = g^m · h^z$ .
 
 ---
@@ -145,16 +142,16 @@ Pedersen commitment scheme obtained from Schnorr’s protocol via Damgård’s t
 ---
 
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order.  
-$2$: The key generation procedure publishes randomly chosen generators $g,h ∈ G$, which serve as both the commitment key and
+$2$: The key generation procedure publishes randomly chosen generators $g,h \in G$, which serve as both the commitment key and
 verification key.  
-$3$: To commit to a number $m ∈ \{0,...,|G| −1\}$, committer picks a random $z ∈ \{0,...,|G| −1\}$ and sends $c ← h^{−m} · g^z$  
+$3$: To commit to a number $m \in \{0,...,|G| −1\}$, committer picks a random $z \in \{0,...,|G| −1\}$ and sends $c ← h^{−m} · g^z$  
 $4$: To open a commitment $c$, committer sends $(m,z).$ Verifier checks that $c · h^m = g^z$
 
 ---
 
 ### 12.3.1 Important Properties of Pedersen Commitments
 
-**Additive Homomorphism**: This means that the verifier can take two commitments $c_1$ and $c_2$, to values $m_1,m_2 ∈ \{0,...,|G| −
+**Additive Homomorphism**: This means that the verifier can take two commitments $c_1$ and $c_2$, to values $m_1,m_2 \in \{0,...,|G| −
 1\}$ (with $m_1,m_2$ known to the committer but not to the verifier), and the verifier on its own can derive a commitment $c_3$ to $m_3
 := m_1 + m_2$, such that the prover is able to open $c_3$ to $m_3$. This is done by simply letting $c_3 ← c_1 · c_2$. As for "opening
 information" provided by the prover, if $c_1 = h^{m_1} · g^{z_1}$ and $c_2 = h^{m_2} · g^{z_2}$ , then $c_3 = h^{m_1+m_2} ·
@@ -172,8 +169,8 @@ some value, without actually opening the commitment. Let's see it:
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order over which the Discrete Logarithm relation is hard, with randomly chosen
 generators $g$ and $h$.  
 $2$: Input is $c = g^m · h^z$ . Prover knows $m$ and $z$, Verifier only knows $c,g,h$.  
-$3$: Prover picks $d,r ∈ \{0,...,|G| −1\}$ and sends to verifier $a ← g^d · h^r$ .  
-$4$: Verifier sends challenge $e$ chosen at random from $\{0,...,|G| −1\}$.  
+$3$: Prover picks $d,r \in \{0,...,|G| −1\}$ and sends to verifier $a ← g^d · h^r$ . $4$: Verifier sends challenge $e$ chosen at random
+from $\{0,...,|G| −1\}$.  
 $5$: Prover sends $m' ← me+d$ and $z' ← ze+r$. $6$: Verifier checks that $g^{m'} · h^{z'} = c^e · a$.
 
 ---
@@ -187,8 +184,8 @@ $5$: Prover sends $m' ← me+d$ and $z' ← ze+r$. $6$: Verifier checks that $g^
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order over which the Discrete Logarithm relation is hard, with randomly chosen
 generators $g$ and $h$.  
 $2$: Let $Com(m,z)$ denote the Pedersen commitment $g^m · h^z$ . Prover knows $m$ and $z$, Verifier only knows $Com(m,z),g,h$.  
-$3$: Prover picks $d,r ∈ \{0,...,|G| −1\}$ and sends to verifier $a ← Com(d,r).$  
-$4$: Verifier sends challenge $e$ chosen at random from ${0,...,|G| −1}.$  
+$3$: Prover picks $d,r \in \{0,...,|G| −1\}$ and sends to verifier $a ← Com(d,r).$ $4$: Verifier sends challenge $e$ chosen at random
+from ${0,...,|G| −1}.$  
 $5$: Let $m' ← me + d$ and $z' ← ze + r$, and let $c' ← Com(m ' ,z ' ).$ While Verifier does not know $m '$ and $z '$ , Verifier can
 derive $c '$ unaided from $Com(m,z)$ and $Com(d,r)$ using additive homomorphism: $c'=Com(m,z)^e \cdot Com(d,r)$  
 $6$: Prover sends $(m ' ,z' ).$  
@@ -200,21 +197,15 @@ $7$: Verifier checks that $m' ,z'$ is valid opening information for $c'$ , i.e.,
 e,(m'_1 ,z'_1 ))$ and $(a, e',(m'_2 ,z'_2 ))$ with $e \neq e'$ , we have to extract a valid opening $(m,z)$ for the commitment $c$,
 i.e., $g^m · h^z = c$. As in the analysis of the $Σ$-protocol for the Discrete Logarithm relation, we have:
 
-$$
-\begin{aligned} m^∗ = (m'_1 −m'_2 )·(e−e')^{−1} \quad mod \quad |G|, \\
+$$ \begin{aligned} m^∗ = (m'_1 −m'_2 )·(e−e')^{−1} \quad mod \quad |G|, \\
 z^∗ = (z'_1 −z'_2 )·(e−e')^{−1} \quad mod \quad |G|.
-\end{aligned}
-$$
+\end{aligned} $$
 
 Then:
 
-$$
-\begin{aligned} 
-g^{m^{*}}\cdot
-h^{z^{*}}=\Big(g^{(m_{1}^{\prime}-m_{2}^{\prime})}h^{(z_{1}^{\prime}-z_{2}^{\prime})}\Big)^{(e-e^{\prime})^{-1}}=\Big(c^{e}\cdot
-a\cdot\Big(c^{e^{\prime}}\cdot a\Big)^{-1}\Big)^{(e-e^{\prime})^{-1}}=c
-\end{aligned}
-$$
+$$ \begin{aligned} g^{m^{*}}\cdot
+h^{z^ * }=\Big(g^{(m_{1}^{\prime}-m_{2}^{\prime})}h^{(z_{1}^{\prime}-z_{2}^{\prime})}\Big)^{(e-e^{\prime})^{-1}}=\Big(c^{e}\cdot
+a\cdot\Big(c^{e^{\prime}}\cdot a\Big)^{-1}\Big)^{(e-e^{\prime})^{-1}}=c \end{aligned} $$
 
 where the penultimate equality follows from the fact that $(a, e,(m'_1 ,z'_1 ))$ and $(a, e',(m'_1 ,z'_1 ))$ are accepting transcripts.
 That is, $(m^* ,z^* )$ is a valid (message, opening information) pair for the commitment $c$.  
@@ -236,19 +227,17 @@ is yes, using a somewhat more complicated variant of the $Σ$-protocols we have 
 ---
 
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order over which the Discrete Logarithm relation is hard.  
-$2$: Input is $c_i = g^{m_i} · h^{r_i}$ for $i ∈ \{1,2,3\}$ such that $m_3 = m_1 ·m_2$ mod $|G|$  
-$3$: Prover knows $m_i$ and $r_i$ for all $i ∈ \{1,2,3\},$ Verifier only knows $c_1, c_2, c_3,g,h$.  
-$4$: Prover picks $b_1,...,b_5 ∈ \{0,...,|G| −1\}$ and sends to verifier three values: $α ←
+$2$: Input is $c_i = g^{m_i} · h^{r_i}$ for $i \in \{1,2,3\}$ such that $m_3 = m_1 ·m_2$ mod $|G|$  
+$3$: Prover knows $m_i$ and $r_i$ for all $i \in \{1,2,3\},$ Verifier only knows $c_1, c_2, c_3,g,h$.  
+$4$: Prover picks $b_1,...,b_5 \in \{0,...,|G| −1\}$ and sends to verifier three values: $α ←
 g^{b_1} · h^{b_2} , β ← g^{b_3} · h^{b_4} , γ ← c_1^{b_3} · h^{b_5}$ .  
 $5$: Verifier sends challenge $e$ chosen at random from $\{0,...,|G| −1\}$.  
 $6$: Prover sends $z_1 ← b_1 +e ·m_1, z_2 ← b_2 +e ·r_1, z_3 ← b_3 +e ·m_2, z_4 ← b_4 +e ·r_2, z_5 ← b_5 +e ·(r_3 −r_1m_2).$  
 $7$: Verifier checks that the following three equalities hold:
 
-$$
-\begin{aligned} g^{z_1} · h^{z_2} = α · c_1^e,\\
+$$ \begin{aligned} g^{z_1} · h^{z_2} = α · c_1^e,\\
 g^{z_3} · h^{z_4} = β · c_2^e ,\\
-c_1^{z_3} · h^{z_5} = γ · c_3^e \end{aligned}
-$$
+c_1^{z_3} · h^{z_5} = γ · c_3^e \end{aligned} $$
 
 ---
 
@@ -260,20 +249,18 @@ g^mh^z$ indicates that the group generators used to produce the Pedersen commitm
 ---
 
 $1$: Let $G$ be a (multiplicative) cyclic group of prime order over which the Discrete Logarithm relation is hard.  
-$2$: Input is $c_i = g^{m_i} · h ^{r_i} = Com_{g,h}(m_i ,r_i)$ for $i ∈ \{1,2,3\}$ such that $m_3 = m_1 ·m_2$ mod $|G|.$  
-$3$: Prover knows $m_i$ and $r_i$ for all $i ∈ \{1,2,3\},$ Verifier only knows $c_1, c_2, c_3,g,h$.  
-$4$: Prover picks $b_1,...,b_5 ∈ \{0,...,|G| −1\}$ and sends to
+$2$: Input is $c_i = g^{m_i} · h ^{r_i} = Com_{g,h}(m_i ,r_i)$ for $i \in \{1,2,3\}$ such that $m_3 = m_1 ·m_2$ mod $|G|.$  
+$3$: Prover knows $m_i$ and $r_i$ for all $i \in \{1,2,3\},$ Verifier only knows $c_1, c_2, c_3,g,h$.  
+$4$: Prover picks $b_1,...,b_5 \in \{0,...,|G| −1\}$ and sends to
 verifier three values: $α ← Com_{g,h}(b_1,b_2), β ← Com_{g,h}(b_3,b_4), γ ← Com_{c_1,h}(b_3,b_5).$  
 $5$: Verifier sends challenge $e$ chosen at random from $\{0,...,|G| −1\}.$  
 $6$: Let $z_1 ← b_1 +e ·m_1, z_2 ← b_2 +e ·r_1, z_3 ← b_3 +e ·m_2, z_4 ← b_4 +e ·r_2, z_5 ← b_5 +e ·(r_3 −r_1m_2).$  
 $7$: While Verifier does not know $z_1,...,z_5$, using additive homomorphism Verifier can derive the following three commitments
 unaided using additive homomorphism:
 
-$$
-\begin{aligned} c_1' = Com_{g,h}(z_1,z_2) = α · c_1^e , \\
+$$ \begin{aligned} c_1' = Com_{g,h}(z_1,z_2) = α · c_1^e , \\
 c_2' = Com_{g,h}(z_3,z_4) = β · c_2^e , \\
-c_3' = Com_{c_1,h}(z_3,z_5) = γ · c_3^e \end{aligned}
-$$
+c_3' = Com_{c_1,h}(z_3,z_5) = γ · c_3^e \end{aligned} $$
 
 This final equality for $c_3'$ exploits that:
 
