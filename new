@@ -1,0 +1,83 @@
+#!/bin/bash
+
+domain=$1
+# Check if args passed
+if [ -z "$1" ]
+then
+#  Ask for domain name
+  echo "Domain name:"
+    read domain
+
+fi
+
+echo "Location to files (default current directory):"
+echo "Please note that the location must be readable by the nginx user."
+echo "For best results use a directory in /var/www"
+read location
+
+# if location is empty, use current directory
+if [ -z "$location" ]
+then
+  location=$PWD
+fi
+
+# Install nginx
+apt update
+apt install nginx -y
+# Setup NGINX config
+printf "server {
+  listen 80;
+  listen [::]:80;
+  root $location;
+  index index.html;
+  server_name $domain *.$domain;
+
+    location / {
+        try_files \$uri \$uri/ @htmlext;
+    }
+
+    location ~ \.html$ {
+        try_files \$uri =404;
+    }
+
+    location @htmlext {
+        rewrite ^(.*)$ \$1.html last;
+    }
+    error_page 404 /404.html;
+    location = /404.html {
+            internal;
+    }
+    location = /.well-known/wallets/HNS {
+        add_header Cache-Control 'must-revalidate';
+        add_header Content-Type text/plain;
+    }
+    listen 443 ssl;
+    ssl_certificate /etc/ssl/$domain.crt;
+    ssl_certificate_key /etc/ssl/$domain.key;
+}
+" > /etc/nginx/sites-available/$domain
+ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/$domain
+
+apt install xxd
+#generate ssl certificate
+openssl req -x509 -newkey rsa:4096 -sha256 -days 365 -nodes \
+  -keyout cert.key -out cert.crt -extensions ext  -config \
+  <(echo "[req]";
+    echo distinguished_name=req;
+    echo "[ext]";
+    echo "keyUsage=critical,digitalSignature,keyEncipherment";
+    echo "extendedKeyUsage=serverAuth";
+    echo "basicConstraints=critical,CA:FALSE";
+    echo "subjectAltName=DNS:$domain,DNS:*.$domain";
+    ) -subj "/CN=*.$domain"
+
+# Print TLSA record and store in file in case of lost output
+echo "Add this TLSA Record to your DNS:"
+echo -n "3 1 1 " && openssl x509 -in cert.crt -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | xxd  -p -u -c 32
+
+mv cert.key /etc/ssl/$domain.key
+mv cert.crt /etc/ssl/$domain.crt
+
+# Restart to apply config file
+chmod a+rx $location
+nginx -s reload
